@@ -1,22 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BlogList from './BlogList';
+import { Step } from '@mui/material';
 
 const Home = () => {
-    const [blogs, setBlogs] = useState([
-        { title: 'How to build a website', body: 'Hi, welcome to . . .', author: 'mario', id: 1 },
-        { title: 'Welcome Blog', body: 'Hi, welcome to . . .', author: 'yoshi', id: 2 },
-        { title: 'Web dev top tips', body: 'Hi, welcome to . . .', author: 'mario', id: 3 }
-    ]);
+    const [blogs, setBlogs] = useState(null);
+    const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
 
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id)
-        setBlogs(newBlogs);
-    };
+    //const [name, setName] = useState('mario');
+
+    // const handleDelete = (id) => {
+    //     const newBlogs = blogs.filter(blog => blog.id !== id)
+    //     setBlogs(newBlogs);
+    // };
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetch('http://localhost:8000/blogs')
+                .then(res => {
+                    if(!res.ok) {
+                        throw Error('could not fetch the data for that resource');
+                    }
+                    return res.json();
+                })
+                .then((data) => {
+                    setBlogs(data);
+                    setIsPending(false);
+                    setError(null);
+                })
+                .catch(err => {
+                    setIsPending(false);
+                    setError(err.message);
+                })
+            }, 1000);
+    }, []);
 
     return ( 
         <div className='home'>
-            <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
-            <BlogList blogs={blogs.filter((blog) => blog.author === 'mario')} title="Mario's blogs" />
+            { error &&  <div>{ error }</div>}
+            { isPending && <div>Loading ...</div> }
+            {blogs && <BlogList blogs={blogs} title="All Blogs" />}            {/* <button onClick={() => setName('luigi')}>Change Name</button> */}
+            {/* <p>{ name }</p> */}
         </div>
     );
 }
