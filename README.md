@@ -39,6 +39,19 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+### `npm install json-server`
+
+Install the json-server package to run your server.
+
+### `npx json-server --watch data/db.js on --port 8000`
+
+Starts the json server to store your blogs/data so that you can modify the blogs.
+
+### `npm install react-router-dom@5`
+
+Install the react-router-dom package.
+
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
