@@ -17,7 +17,7 @@ const Home = () => {
         <div className='home'>
             { error &&  <div>{ error }</div>}
             { isPending && <div>Loading ...</div> }
-            {blogs && <BlogList blogs={blogs} title="All Blogs" />}            {/* <button onClick={() => setName('luigi')}>Change Name</button> */}
+            {blogs && <BlogList blogs={blogs} title="All Blogs managed by Chris" />}            {/* <button onClick={() => setName('luigi')}>Change Name</button> */}
             {/* <p>{ name }</p> */}
         </div>
     );
